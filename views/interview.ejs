@@ -1,0 +1,124 @@
+<div class="container mt-5">
+    <h1 class="mb-4">Allocate Student to Interview</h1>
+    <div class="d-flex justify-content-end">
+        <select id="interviewSelect" class="form-select" style="width: 200px" onchange="loadSelectedInterview()">
+            <option value="">Select an Interview</option>
+            <% interviewList.forEach((interview, index)=> { %>
+                <option value="<%= interview._id %>">
+                    <%= new Date(interview.interviewDate).toLocaleDateString() %> - <%= interview.company %>
+                </option>
+                <% }); %>
+        </select>
+    </div>
+
+    <form action="/interviews/allocatestudents" method="POST">
+        <div class="form-group mt-4">
+            <label for="interviewDate">Interview Date:</label>
+            <input type="date" class="form-control mt-2" id="interviewDate" name="interviewDate" required />
+        </div>
+
+        <div class="form-group mt-4">
+            <label for="company">Company:</label>
+            <input type="text" class="form-control mt-2" id="company" name="company" required />
+        </div>
+
+        <div class="form-group mt-4">
+            <label for="student">Select a Student:</label>
+            <select class="form-select mt-2" id="student" name="studentId">
+                <option label="Select student"></option>
+                <% for (let i=0; i < students.length; i++) { %>
+                    <option value="<%= students[i].id %>">
+                        <%= students[i].studentDetails.name %>
+                    </option>
+                    <% } %>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Allocate Student</button>
+    </form>
+
+    <div class="mt-4">
+        <h4>List of all students</h4>
+        <%- include('_interviewlist') -%>
+    </div>
+
+    <div class="mt-4" id="selected-interview-table" style="display: none;">
+        <h5>List from selected interviews</h5>
+        <table class="text-center">
+            <thead>
+                <tr>
+                    <th class="" style="width: 150px;">Name</th>
+                    <th class="" style="width: 150px;">Status</th>
+                    <th class="" style="width: 150px;">Action</th>
+                </tr>
+            </thead>
+            <tbody id="selected-interview-tbody" class="p-2">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+
+    function loadSelectedInterview() {
+        const interviewSelect = document.getElementById("interviewSelect");
+        const selectedInterviewId = interviewSelect.value;
+        const tableBody = document.getElementById('selected-interview-tbody')
+        const selectedInterviewTable = document.getElementById('selected-interview-table');
+
+        if (selectedInterviewId !== "") {
+            fetch(`/interview/${selectedInterviewId}/students`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Fetched students", data.students);
+                    if (data) {
+                        selectedInterviewTable.style.display = 'block';
+                    }
+                    tableBody.innerHTML = '';
+                    data.students.forEach((student) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = ` <td class="text-center">${student.name}</td>
+            <td class="text-center">
+              <select name="resultStatus" id="resultStatus-${student.studentId}" class = "form-select">
+                <option value="Pending" ${student.resultStatus === 'Pending' ? 'selected' : ''}>Pending</option>
+                <option value="Passed" ${student.resultStatus === 'Passed' ? 'selected' : ''}>Passed</option>
+                <option value="Failed" ${student.resultStatus === 'Failed' ? 'selected' : ''}>Failed</option>
+              </select>
+            </td>
+            <td class="text-center">
+              <button onclick="updateResultStatus('${student.studentId}', '${selectedInterviewId}')" class = "btn btn-primary">Update</button>
+            </td>`
+
+                        tableBody.appendChild(row)
+
+                    })
+
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }
+
+    function updateResultStatus(studentId, interviewId) {
+        const resultStatusSelect = document.querySelector(`#resultStatus-${studentId}`);
+        const resultStatus = resultStatusSelect.value;
+
+        fetch(`/update-result/${interviewId}/${studentId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ resultStatus })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+
+</script>

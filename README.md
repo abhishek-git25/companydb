@@ -1,1 +1,2 @@
-# companydb
+MongoAtlasusername : yadavabhi050198
+passwordmongoatlas : Ex4M32kAQpX1VhWA

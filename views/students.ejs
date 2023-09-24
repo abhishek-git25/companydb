@@ -1,0 +1,86 @@
+<div class="container">
+  <form action="/students/addstudents" id="create-student-form" method="post" >
+    <!-- Add Student Form -->
+    <h2 class="mt-4">Add Student</h2>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="college" class="form-label">College:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="college"
+        name="college"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Status:</label>
+      <select class="form-select" id="status" name="status" required>
+        <option value="placed">Placed</option>
+        <option value="not_placed">Not Placed</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="dsaFinalScore" class="form-label">DSA Score:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="dsaFinalScore"
+        name="dsaFinalScore"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="webDFinalScore" class="form-label">WebD Score:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="webDFinalScore"
+        name="webDFinalScore"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="reactFinalScore" class="form-label">React Score:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="reactFinalScore"
+        name="reactFinalScore"
+        required
+      />
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Add Student"></button>
+  </form>
+
+  <h2 class="mt-4">Student List</h2>
+  <!-- Student List Goes Here -->
+  <table class="text-center" class="w-100">
+    <thead >
+      <tr>
+        <th style="width: 150px;">Student ID</th>
+        <th style="width: 150px;">Name</th>
+        <th style="width: 150px;">College</th>
+        <th style="width: 150px;">Status</th>
+        <th style="width: 150px;">DSA Score</th>
+        <th style="width: 150px;">Web D score</th>
+        <th style="width: 150px;">React Score</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <%- include('_studentlist') -%>
+    </tbody>
+  </table>
+
+
+</div>
+<script src="/assets/js/students.js"></script>

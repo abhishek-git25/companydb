@@ -1,0 +1,62 @@
+<div class="container">
+    <h1>List of Jobs</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<script>
+
+    console.log('jobs page');
+    // function getJobs() {
+    //     const url = 'https://fresh-linkedin-profile-data.p.rapidapi.com/get-linkedin-profile?linkedin_url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fwilliamhgates%2F';
+    //     const options = {
+    //         method: 'GET',
+    //         headers: {
+    //             'X-RapidAPI-Key': '6594266bb6msh49ac64e9a55bfa7p1f6296jsn59159a9fd147',
+    //             'X-RapidAPI-Host': 'fresh-linkedin-profile-data.p.rapidapi.com'
+    //         }
+    //     };
+
+    //     try {
+    //         fetch(url, options)
+    //             .then((response) => response.json())
+    //             .then((data) => {
+    //                 console.log(data, "33");
+    //             })
+
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+
+
+    function getJobs() {
+        fetch(`https://api.producthunt.com/v2/api/graphql`, {
+            method: 'GET',
+            // headers: {
+            //     'X-RapidAPI-Key': '6594266bb6msh49ac64e9a55bfa7p1f6296jsn59159a9fd147',
+            //     'X-RapidAPI-Host': 'fresh-linkedin-profile-data.p.rapidapi.com'
+            // }
+
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+
+
+    getJobs()
+</script>

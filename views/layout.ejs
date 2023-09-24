@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= title %>
+  </title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+    integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+
+  <!-- <%- style %> -->
+</head>
+
+<body>
+  <% if (messages.success) { %>
+    <div class="alert alert-success" id="alert-success">
+      <%= messages.success %>
+    </div>
+    <% } %>
+      <% if (messages.error) { %>
+        <div class="alert alert-danger" id="alert-error">
+          <%= messages.error %>
+        </div>
+        <% } %>
+          <% if(showHeader) { %> <%- include('_header'); %>
+              <% } %>
+
+                <main id="layout-main" style="height: 90vh;"><%- body %></main>
+                <%- include('script'); %>
+
+                  <% if(showFooter) { %> <%- include('_footer'); %>
+                      <% } %>
+
+                        <%- script %>
+
+                          <script src="/js/bootstrap.min.js"></script>
+                          <script>
+                            setTimeout(function () {
+                              const successMessage = document.getElementById("alert-success");
+                              const errorMessage = document.getElementById("alert-error");
+
+                              if (successMessage) {
+                                successMessage.style.display = "none";
+                              }
+                              if (errorMessage) {
+                                errorMessage.style.display = "none";
+                              }
+                            }, 5000);
+
+                          </script>
+
+</body>
+
+</html>

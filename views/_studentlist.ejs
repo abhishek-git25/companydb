@@ -1,0 +1,12 @@
+<% students.forEach(function(student){ %>
+<tr>
+  <td><%= student._id %></td>
+  <td><%= student.studentDetails.name %></td>
+  <td><%= student.studentDetails.college %></td>
+  <td><%= student.studentDetails.status %></td>
+  <td><%= student.courseScores.dsaFinalScore %></td>
+  <td><%= student.courseScores.webDFinalScore %></td>
+  <td><%= student.courseScores.reactFinalScore %></td>
+</tr>
+
+<% }) %>

@@ -1,0 +1,29 @@
+<table>
+    <thead>
+        <tr>
+            <th style="width: 150px" class="text-center">Interview Date</th>
+            <th style="width: 150px" class="text-center">Company</th>
+            <th style="width: 150px" class="text-center">Student Name</th>
+            <th style="width: 150px" class="text-center">Result Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% interviewList.forEach((interview)=> { %> <% interview.students.forEach((allocation)=> { %>
+                <tr>
+                    <td class="text-center">
+                        <%= new Date(interview.interviewDate).toLocaleDateString()%>
+                    </td>
+                    <td class="text-center">
+                        <%= interview.company %>
+                    </td>
+                    <td class="text-center">
+                        <%= allocation.student.studentDetails.name %>
+                    </td>
+                    <td class="text-center">
+                        <%= allocation.resultStatus %>
+                    </td>
+                </tr>
+                <% }); %>
+                    <% }); %>
+    </tbody>
+</table>

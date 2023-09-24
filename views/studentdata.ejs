@@ -1,0 +1,61 @@
+<div class="container">
+    <h2>Student Data</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 150px;">Student Id</th>
+
+                <th style="width: 150px;">Student Name</th>
+                <th style="width: 150px;">Student College</th>
+
+                <th style="width: 150px;">DSA Final Score</th>
+                <th style="width: 150px;">WebD Final Score</th>
+                <th style="width: 150px;">React Final Score</th>
+                <th style="width: 150px;">Interview Date</th>
+                <th style="width: 150px;">Interview Company</th>
+                <th style="width: 150px;">Interview Result</th>
+            </tr>
+        </thead>
+        <tbody style="text-align: center;">
+            <% interviews.forEach(function(interview) { %>
+                <% interview.students.forEach(function(studentData) { %>
+                    <tr>
+                        <td>
+                            <%= studentData.student._id %>
+                        </td>
+                        <td>
+                            <%= studentData.student.studentDetails.name %>
+                        </td>
+                        <td>
+                            <%= studentData.student.studentDetails.college %>
+                        </td>
+                        <td>
+                            <%= studentData.student.courseScores.dsaFinalScore %>
+                        </td>
+                        <td>
+                            <%= studentData.student.courseScores.webDFinalScore %>
+                        </td>
+                        <td>
+                            <%= studentData.student.courseScores.reactFinalScore %>
+                        </td>
+                        <td>
+                            <%= new Date(interview.interviewDate).toLocaleDateString() %>
+                        </td>
+                        <td>
+                            <%= interview.company %>
+                        </td>
+                        <td>
+                            <%= studentData.student.studentDetails.status %>
+                        </td>
+                    </tr>
+                    <% }); %>
+                        <% }); %>
+        </tbody>
+    </table>
+
+  <div style="margin-top: 20px;">
+    <a href="/download-csv" class="btn btn-primary">Download CSV</a>
+
+
+  </div>
+</div>
